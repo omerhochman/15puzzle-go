@@ -1,7 +1,7 @@
 package game
 
 type Game struct {
-	board [][]int
+	Board [][]int
 }
 
 func (g Game) String() string {
@@ -20,4 +20,8 @@ func InitGame() Game {
 
 func (g Game) IsSuccess() bool {
 	return false
+}
+
+func (g Game) NumbersCount() int {
+	return len(g.Board)*len(g.Board[0]) - 1
 }

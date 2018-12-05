@@ -2,9 +2,22 @@ package main
 
 import (
 	"../game"
-	"fmt"
+	"../input"
+	"../presentation"
 )
 
 func main() {
-	fmt.Println(game.Game{})
+	gameFlow()
+}
+
+func gameFlow() {
+	myGame := game.InitGame()
+	var err error
+	for !myGame.IsSuccess() {
+		presentation.PrintMenu(myGame, err)
+		number := input.ReadNumber()
+		direction := input.ReadDirection()
+		err = myGame.MoveCell(number, direction)
+	}
+	presentation.PrintSuccess()
 }

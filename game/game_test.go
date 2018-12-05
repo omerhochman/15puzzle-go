@@ -19,9 +19,9 @@ func findNumInBoard(board [][]int, number int) bool {
 
 func TestInitGame(t *testing.T) {
 	game := InitGame()
-	for x := 0; x < len(game.board)*len(game.board[0]); x++ {
-		if !findNumInBoard(game.board, x) {
-			t.Errorf("Number %v wasnt found in board", x)
+	for x := 0; x <= game.NumbersCount(); x++ {
+		if !findNumInBoard(game.Board, x) {
+			t.Errorf("Number %v wasnt found in Board", x)
 		}
 	}
 }
@@ -39,7 +39,6 @@ func TestGame_IsSuccess_success(t *testing.T) {
 
 	if !game.IsSuccess() {
 		t.Errorf("Game should be succeeded")
-
 	}
 }
 
@@ -103,13 +102,12 @@ func assertMoveSuccessfully(number int, dir Direction, game Game, t *testing.T, 
 	if err != nil {
 		t.Error(err)
 	}
-	if !reflect.DeepEqual(expected_board, game.board) {
-		t.Errorf("Board before moving cell: %v, expected after moving cell: %v", game.board, expected_board)
+	if !reflect.DeepEqual(expected_board, game.Board) {
+		t.Errorf("Board before moving cell: %v, expected after moving cell: %v", game.Board, expected_board)
 	}
 }
 
 func TestGame_MoveCell_failures(t *testing.T) {
-
 	board := [][]int{
 		{1, 2, 3},
 		{4, 5, 6},
