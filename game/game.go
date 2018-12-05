@@ -8,8 +8,26 @@ func (g Game) String() string {
 	return ""
 }
 
-func (g Game) MoveCell(number int, direction Direction) error {
+func (myGame Game) MoveCell(number int, direction Direction) error {
+	sourceX, sourceY, err := GetIndexesByNumber(myGame, number)
+
+	if err != nil {
+		return err
+	}
+
+	destX, destY, err := GetDestinationIndexes(myGame, sourceX, sourceY, direction)
+
+	if err != nil {
+		return err
+	}
+
+	moveCellInner(myGame, sourceX, sourceY, destX, destY)
 	return nil
+}
+
+func moveCellInner(game Game, sourceX int, sourceY int, destX int, destY int) {
+	game.Board[destX][destY] = game.Board[sourceX][sourceY]
+	game.Board[sourceX][sourceY] = 0
 }
 
 func InitGame() Game {
