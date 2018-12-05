@@ -1,23 +1,23 @@
 package game
 
-const GAME_WIDTH = 4
-const GAME_HEIGHT = 4
-
 type Game struct {
-	board []int
+	board [][]int
 }
 
 func (g Game) String() string {
 	return ""
 }
 
-func (g Game) moveCell(number int, direction string) error {
+func (g Game) MoveCell(number int, direction Direction) error {
 	return nil
 }
 
-func (g Game) init() {
+func InitGame() Game {
+	return Game{
+		[][]int{},
+	}
 }
 
-func (g Game) isSuccess() bool {
+func (g Game) IsSuccess() bool {
 	return false
 }
