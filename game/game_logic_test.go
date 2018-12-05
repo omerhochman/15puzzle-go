@@ -19,10 +19,10 @@ func TestGetDestinationIndexes(t *testing.T) {
 		board,
 	}
 
-	i, j, err := GetDestinationIndexes(game, 0, 1, DOWN)
+	i, j, err := GetDestinationIndexes(game, 0, 1, DOWN, 2)
 
 	if err != nil {
-		t.Errorf("Expected null error but recieved %v", err)
+		t.Errorf("Expected null error but recieved %T", err)
 	}
 
 	assertIndexes(1, 1, i, j, t)
@@ -39,10 +39,10 @@ func TestGetDestinationIndexes_Failure(t *testing.T) {
 		board,
 	}
 
-	_, _, err := GetDestinationIndexes(game, 0, 1, UP)
+	_, _, err := GetDestinationIndexes(game, 0, 1, UP, 2)
 
 	if _, ok := err.(CannotMoveCellError); !ok {
-		t.Errorf("Expected CannotMoveCellError but recieved %v", err)
+		t.Errorf("Expected CannotMoveCellError but recieved %T", err)
 	}
 }
 
@@ -65,7 +65,7 @@ func TestGetIndexesByNumber_Success(t *testing.T) {
 func assertGetIndexesSuccess(game Game, t *testing.T, number, expectedI, expectedJ int) {
 	i, j, err := GetIndexesByNumber(game, number)
 	if err != nil {
-		t.Errorf("Expected null error but recieved %v", err)
+		t.Errorf("Expected null error but recieved %T", err)
 	}
 	assertIndexes(expectedI, expectedJ, i, j, t)
 }
@@ -89,6 +89,6 @@ func TestGetIndexesByNumber_Failure(t *testing.T) {
 func assertGetIndexesFailure(game Game, t *testing.T, number int) {
 	_, _, err := GetIndexesByNumber(game, number)
 	if _, ok := err.(NumberNotExistError); !ok {
-		t.Errorf("Expected NumberNotExistError but recieved %v", err)
+		t.Errorf("Expected NumberNotExistError but recieved %T", err)
 	}
 }

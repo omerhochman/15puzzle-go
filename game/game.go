@@ -9,19 +9,20 @@ func (g Game) String() string {
 }
 
 func (myGame Game) MoveCell(number int, direction Direction) error {
-	sourceX, sourceY, err := GetIndexesByNumber(myGame, number)
+	sourceRow, sourceCol, err := GetIndexesByNumber(myGame, number)
 
 	if err != nil {
 		return err
 	}
 
-	destX, destY, err := GetDestinationIndexes(myGame, sourceX, sourceY, direction)
+	destX, destY, err := GetDestinationIndexes(myGame, sourceRow, sourceCol, direction, number)
 
 	if err != nil {
 		return err
 	}
 
-	moveCellInner(myGame, sourceX, sourceY, destX, destY)
+	moveCellInner(myGame, sourceRow, sourceCol, destX, destY)
+
 	return nil
 }
 
