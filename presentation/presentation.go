@@ -1,11 +1,8 @@
 package presentation
 
-import "fmt"
-import "../game"
-
-func (myGame game.Game) String() string {
-	return ""
-}
+import (
+	"../game"
+)
 
 func PrintMenu(myGame game.Game, err error) string {
 	return ""

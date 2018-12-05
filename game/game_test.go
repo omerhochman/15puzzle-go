@@ -19,6 +19,7 @@ func findNumInBoard(board [][]int, number int) bool {
 
 func TestInitGame(t *testing.T) {
 	game := InitGame()
+	t.Logf("\n%v", game)
 	for x := 0; x <= game.NumbersCount(); x++ {
 		if !findNumInBoard(game.Board, x) {
 			t.Errorf("Number %v wasnt found in Board", x)
@@ -59,7 +60,33 @@ func TestGame_IsSuccess_failure(t *testing.T) {
 }
 
 func TestGame_MoveCell_succeeded(t *testing.T) {
+	assertMoveSuccessfully(
+		5, UP, t, [][]int{
+			{1, 2, 3},
+			{4, 5, 6},
+			{7, 0, 8},
+		})
+	assertMoveSuccessfully(
+		2, DOWN, t, [][]int{
+			{1, 0, 3},
+			{4, 2, 6},
+			{7, 5, 8},
+		})
+	assertMoveSuccessfully(
+		6, LEFT, t, [][]int{
+			{1, 2, 3},
+			{4, 6, 0},
+			{7, 5, 8},
+		})
+	assertMoveSuccessfully(
+		4, RIGHT, t, [][]int{
+			{1, 2, 3},
+			{0, 4, 6},
+			{7, 5, 8},
+		})
+}
 
+func assertMoveSuccessfully(number int, dir Direction, t *testing.T, expected_board [][]int) {
 	board := [][]int{
 		{1, 2, 3},
 		{4, 0, 6},
@@ -70,40 +97,13 @@ func TestGame_MoveCell_succeeded(t *testing.T) {
 		board,
 	}
 
-	assertMoveSuccessfully(
-		5, UP, game, t, [][]int{
-			{1, 2, 3},
-			{4, 5, 6},
-			{7, 0, 8},
-		})
-	assertMoveSuccessfully(
-		2, DOWN, game, t, [][]int{
-			{1, 0, 3},
-			{4, 2, 6},
-			{7, 5, 8},
-		})
-	assertMoveSuccessfully(
-		6, LEFT, game, t, [][]int{
-			{1, 2, 3},
-			{4, 6, 0},
-			{7, 5, 8},
-		})
-	assertMoveSuccessfully(
-		4, RIGHT, game, t, [][]int{
-			{1, 2, 3},
-			{0, 4, 6},
-			{7, 5, 8},
-		})
-}
-
-func assertMoveSuccessfully(number int, dir Direction, game Game, t *testing.T, expected_board [][]int) {
 	err := game.MoveCell(number, dir)
 
 	if err != nil {
 		t.Error(err)
 	}
 	if !reflect.DeepEqual(expected_board, game.Board) {
-		t.Errorf("Board before moving cell: %v, expected after moving cell: %v", game.Board, expected_board)
+		t.Errorf("Board after moving cell: %v, expected: %v", game.Board, expected_board)
 	}
 }
 
@@ -120,7 +120,6 @@ func TestGame_MoveCell_failures(t *testing.T) {
 
 	assertMoveFailed(game, 8, DOWN, t)
 	assertMoveFailed(game, 8, UP, t)
-	assertMoveFailed(game, 0, UP, t)
 	assertMoveFailed(game, 2, UP, t)
 	assertMoveFailed(game, 1, LEFT, t)
 	assertMoveFailed(game, 3, RIGHT, t)
