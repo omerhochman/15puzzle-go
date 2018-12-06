@@ -14,17 +14,20 @@ type Game struct {
 func (g Game) String() string {
 	var buffer bytes.Buffer
 
-	for i, row := range g.Board {
+	for _, row := range g.Board {
 		for j, cell := range row {
-			buffer.WriteString(fmt.Sprintf("%4d", cell))
+			if cell != 0 {
+				buffer.WriteString(fmt.Sprintf("%4d", cell))
+			} else {
+				buffer.WriteString(fmt.Sprintf("%4v", "_"))
+			}
 
 			if j < len(row)-1 {
 				buffer.WriteString(" ")
 			}
 		}
-		if i < len(g.Board)-1 {
-			buffer.WriteString("\n")
-		}
+
+		buffer.WriteString("\n")
 	}
 
 	return buffer.String()
@@ -77,7 +80,6 @@ func createShuffledNumbersArray() []int {
 
 	for i, num := range r.Perm(len(arr)) {
 		arr[i] = num
-		num++
 	}
 
 	return arr

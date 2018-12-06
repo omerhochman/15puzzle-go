@@ -15,9 +15,9 @@ func gameFlow() {
 	var err error
 	for !myGame.IsSuccess() {
 		presentation.PrintMenu(myGame, err)
-		number := input.ReadNumber()
+		number := input.ReadNumber(myGame)
 		direction := input.ReadDirection()
 		err = myGame.MoveCell(number, direction)
 	}
-	presentation.PrintSuccess()
+	presentation.PrintSuccess(myGame)
 }

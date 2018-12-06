@@ -8,13 +8,13 @@ type CannotMoveCellError struct {
 }
 
 func (err CannotMoveCellError) Error() string {
-	return fmt.Sprintf("Cannot move number %v to direction %v. number destination must be the empty spot.", err.number, err.direction)
+	return fmt.Sprintf("Cannot move Number %v to direction %v. Number destination must be the empty spot.", err.number, err.direction)
 }
 
 type NumberNotExistError struct {
-	number int
+	Number int
 }
 
 func (err NumberNotExistError) Error() string {
-	return fmt.Sprintf("Number %v does not exist on the board", err.number)
+	return fmt.Sprintf("Number %v does not exist on the board", err.Number)
 }
