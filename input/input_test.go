@@ -16,14 +16,32 @@ func TestValidateNum_invalid(t *testing.T) {
 		board,
 	}
 
-	assertNumberInvalid(myGame, t, "0")
-	assertNumberInvalid(myGame, t, "9")
+	assertNumberInvalid(myGame, t, 0)
+	assertNumberInvalid(myGame, t, 9)
 }
 
-func assertNumberInvalid(myGame game.Game, t *testing.T, numberAsText string) {
-	_, valid := ValidateNum(numberAsText, myGame)
+func assertNumberInvalid(myGame game.Game, t *testing.T, number int) {
+	_, valid := ValidateNum(number, nil, myGame)
 	if valid {
 		t.Error("Number should be invalid")
+	}
+}
+
+func TestValidateNum_input_error(t *testing.T) {
+	board := [][]int{
+		{1, 2, 3},
+		{4, 0, 6},
+		{7, 5, 8},
+	}
+
+	myGame := game.Game{
+		board,
+	}
+
+	_, valid := ValidateNum(1, game.NumberNotExistError{}, myGame)
+
+	if valid {
+		t.Error("There was an error in the reading process, number should be invalid")
 	}
 }
 
@@ -38,12 +56,12 @@ func TestValidateNum_valid(t *testing.T) {
 		board,
 	}
 
-	assertNumberValid(myGame, t, "1", 1)
-	assertNumberValid(myGame, t, "8", 8)
+	assertNumberValid(myGame, t, 1)
+	assertNumberValid(myGame, t, 8)
 }
 
-func assertNumberValid(myGame game.Game, t *testing.T, numberAsText string, expectedNumber int) {
-	num, valid := ValidateNum(numberAsText, myGame)
+func assertNumberValid(myGame game.Game, t *testing.T, expectedNumber int) {
+	num, valid := ValidateNum(expectedNumber, nil, myGame)
 	if !valid {
 		t.Error("Number should be valid")
 	}

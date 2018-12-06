@@ -32,9 +32,7 @@ func TestPrintMenu_no_error(t *testing.T) {
 	}}
 
 	result := PrintMenu(myGame, nil)
-	expectedResult := fmt.Sprintf(
-		myGame.String()+
-			"\nPlease enter a number(1-%v) and then a direction (up, down, left, right)\n", myGame.NumbersCount())
+	expectedResult := fmt.Sprintf(MENU_FORMAT, myGame)
 
 	if strings.Compare(result, expectedResult) != 0 {
 		t.Errorf("Printed menu is not as expected. Actual:\n%v\nExpected:\n%v", result, expectedResult)
@@ -51,8 +49,7 @@ func TestPrintMenu_error(t *testing.T) {
 	cellError := game.NumberNotExistError{}
 	result := PrintMenu(myGame, cellError)
 
-	expectedResult := fmt.Sprintf(
-		"%v\nPlease enter a number(1-%v) and then a direction (up, down, left, right)\n", cellError, myGame.NumbersCount())
+	expectedResult := fmt.Sprintf(MENU_FORMAT, myGame.String()+cellError.Error())
 
 	if strings.Compare(result, expectedResult) != 0 {
 		t.Errorf("Error expected. Actual:\n%v\nExpected:\n%v", result, expectedResult)

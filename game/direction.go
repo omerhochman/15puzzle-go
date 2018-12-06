@@ -9,19 +9,16 @@ func (dir Direction) String() string {
 }
 
 func DirectionFromString(str string) Direction {
-	direction := strings.ToLower(str)
+	directionAsText := strings.ToLower(str)
 
-	switch direction {
-	case string(UP):
-		return UP
-	case string(DOWN):
-		return DOWN
-	case string(LEFT):
-		return LEFT
-	case string(RIGHT):
-		return RIGHT
-		return Direction(direction)
-	default:
-		return ""
+	directions := map[string]Direction{
+		"up":    UP,
+		"down":  DOWN,
+		"right": RIGHT,
+		"left":  LEFT,
 	}
+
+	direction := directions[directionAsText]
+
+	return direction
 }

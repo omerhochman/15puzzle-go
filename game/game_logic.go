@@ -46,8 +46,8 @@ func GetIndexesByNumber(myGame Game, number int) (i int, j int, err error) {
 		return 0, 0, NumberNotExistError{0}
 	}
 
-	for i := range myGame.Board {
-		for j := range myGame.Board[i] {
+	for i, row := range myGame.Board {
+		for j := range row {
 			if myGame.Board[i][j] == number {
 				return i, j, nil
 			}
