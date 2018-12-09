@@ -21,6 +21,10 @@ func PrintMenu(myGame game.Game, err error) string {
 	return text
 }
 
+func PrintWelcome() {
+	fmt.Println("Welcome to the '15 puzzle' game, and good luck!")
+}
+
 func PrintSuccess(myGame game.Game) {
-	fmt.Printf("\n%v\nCongratulations!", myGame)
+	fmt.Printf("\n%v\nCongratulations!\n\n", myGame)
 }

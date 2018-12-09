@@ -94,3 +94,17 @@ func assertDirectionValid(t *testing.T, directionAsText string, expectedDirectio
 		t.Errorf("Direction is not as expected. Actual: %v. Expected: %v.", num, expectedDirection)
 	}
 }
+
+func TestValidateBoardSize(t *testing.T) {
+	assertBoardSize(1, game.DEFAULT_BOARD_SIZE, t)
+	assertBoardSize(11, game.DEFAULT_BOARD_SIZE, t)
+	assertBoardSize(2, 2, t)
+	assertBoardSize(5, 5, t)
+}
+
+func assertBoardSize(userInput, expectedSize int, t *testing.T) {
+	boardSize := ValidateBoardSize(userInput, nil)
+	if boardSize != expectedSize {
+		t.Errorf("Expected board size is: %v", expectedSize)
+	}
+}

@@ -56,12 +56,12 @@ func moveCellInner(game Game, sourceX int, sourceY int, destX int, destY int) {
 	game.Board[sourceX][sourceY] = 0
 }
 
-func InitGame() Game {
+func InitGame(boardSize int) Game {
 
 	var myGame Game
 
 	for {
-		board := CreateRandomBoard()
+		board := CreateRandomBoard(boardSize)
 
 		myGame = Game{
 			board,
@@ -75,11 +75,11 @@ func InitGame() Game {
 	return myGame
 }
 
-func CreateRandomBoard() [][]int {
-	numbersArray, k := createShuffledNumbersArray(), 0
-	board := make([][]int, GAME_HEIGHT)
+func CreateRandomBoard(boardSize int) [][]int {
+	numbersArray, k := createShuffledNumbersArray(boardSize), 0
+	board := make([][]int, boardSize)
 	for i := range board {
-		board[i] = make([]int, GAME_WIDTH)
+		board[i] = make([]int, boardSize)
 		for j := range board[i] {
 			board[i][j] = numbersArray[k]
 			k++
@@ -88,9 +88,9 @@ func CreateRandomBoard() [][]int {
 	return board
 }
 
-func createShuffledNumbersArray() []int {
+func createShuffledNumbersArray(boardSize int) []int {
 	r := rand.New(rand.NewSource(time.Now().Unix()))
-	arr := make([]int, GAME_HEIGHT*GAME_WIDTH)
+	arr := make([]int, boardSize*boardSize)
 
 	for i, num := range r.Perm(len(arr)) {
 		arr[i] = num

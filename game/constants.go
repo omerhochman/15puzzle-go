@@ -1,7 +1,8 @@
 package game
 
-const GAME_WIDTH = 4
-const GAME_HEIGHT = 4
+const MIN_BOARD_SIZE = 2
+const MAX_BOARD_SIZE = 6
+const DEFAULT_BOARD_SIZE = 4
 
 const (
 	UP    Direction = "up"

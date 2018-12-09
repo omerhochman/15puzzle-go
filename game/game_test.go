@@ -18,7 +18,7 @@ func findNumInBoard(board [][]int, number int) bool {
 }
 
 func TestInitGame(t *testing.T) {
-	game := InitGame()
+	game := InitGame(DEFAULT_BOARD_SIZE)
 	t.Logf("\n%v", game)
 	for x := 0; x <= game.NumbersCount(); x++ {
 		if !findNumInBoard(game.Board, x) {

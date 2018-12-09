@@ -5,6 +5,23 @@ import (
 	"fmt"
 )
 
+func ReadBoardSize() int {
+	var boardSize int
+	fmt.Printf("Please choose board size (%v-%v, or anything else for default size %v): ", game.MIN_BOARD_SIZE, game.MAX_BOARD_SIZE, game.DEFAULT_BOARD_SIZE)
+	_, err := fmt.Scanf("%d", &boardSize)
+	boardSize = ValidateBoardSize(boardSize, err)
+	fmt.Println("Playing with board size: ", boardSize)
+	return boardSize
+}
+
+func ValidateBoardSize(num int, err error) int {
+	if err != nil || num < game.MIN_BOARD_SIZE || num > game.MAX_BOARD_SIZE {
+		return game.DEFAULT_BOARD_SIZE
+	}
+
+	return num
+}
+
 func ReadNumber(myGame game.Game) int {
 	num := 0
 	valid := false

@@ -11,7 +11,9 @@ func main() {
 }
 
 func gameFlow() {
-	myGame := game.InitGame()
+	presentation.PrintWelcome()
+	boardSize := input.ReadBoardSize()
+	myGame := game.InitGame(boardSize)
 	var err error
 	for !myGame.IsSuccess() {
 		presentation.PrintMenu(myGame, err)
