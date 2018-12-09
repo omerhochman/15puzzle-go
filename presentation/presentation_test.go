@@ -49,7 +49,7 @@ func TestPrintMenu_error(t *testing.T) {
 	cellError := game.NumberNotExistError{}
 	result := PrintMenu(myGame, cellError)
 
-	expectedResult := fmt.Sprintf(MENU_FORMAT, myGame.String()+cellError.Error())
+	expectedResult := fmt.Sprintf(MENU_FORMAT, myGame.String()+"\n"+cellError.Error())
 
 	if strings.Compare(result, expectedResult) != 0 {
 		t.Errorf("Error expected. Actual:\n%v\nExpected:\n%v", result, expectedResult)

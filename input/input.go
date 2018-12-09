@@ -2,15 +2,16 @@ package input
 
 import (
 	"../game"
+	"../presentation"
 	"fmt"
 )
 
 func ReadBoardSize() int {
 	var boardSize int
-	fmt.Printf("Please choose board size (%v-%v, or anything else for default size %v): ", game.MIN_BOARD_SIZE, game.MAX_BOARD_SIZE, game.DEFAULT_BOARD_SIZE)
+	presentation.PrintChooseBoardSize()
 	_, err := fmt.Scanf("%d", &boardSize)
 	boardSize = ValidateBoardSize(boardSize, err)
-	fmt.Println("Playing with board size: ", boardSize)
+	presentation.PrintSelectedBoardSize(boardSize)
 	return boardSize
 }
 
@@ -27,7 +28,7 @@ func ReadNumber(myGame game.Game) int {
 	valid := false
 
 	for !valid {
-		fmt.Printf("Enter a number (1-%v): ", myGame.NumbersCount())
+		presentation.PrintEnterNum(myGame)
 		_, err := fmt.Scanf("%d", &num)
 		num, valid = ValidateNum(num, err, myGame)
 	}
@@ -53,10 +54,8 @@ func ReadDirection() game.Direction {
 	valid := false
 
 	for !valid {
-		fmt.Print("Enter a direction (up, down, left or right): ")
-
+		presentation.PrintEnterDirection()
 		fmt.Scanf("%s\n", &dirAsText)
-
 		direction, valid = ValidateDirection(dirAsText)
 	}
 
