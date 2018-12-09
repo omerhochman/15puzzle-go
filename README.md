@@ -6,6 +6,4 @@ go run main/main.go
 
 Tests:
 
-go test ./input
-go test ./presentation
-go test ./game
+go test ./input ./presentation/ ./game/
