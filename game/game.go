@@ -31,45 +31,41 @@ func (g Game) String() string {
 	return buffer.String()
 }
 
-func (myGame Game) MoveCell(number int, direction Direction) error {
-	sourceRow, sourceCol, err := GetIndexesByNumber(myGame, number)
+func (gameInstance Game) MoveCell(number int, direction Direction) error {
+	sourceRow, sourceCol, err := GetIndexesByNumber(gameInstance, number)
 
 	if err != nil {
 		return err
 	}
 
-	destX, destY, err := GetDestinationIndexes(myGame, sourceRow, sourceCol, direction, number)
+	destRow, destCol, err := GetDestinationIndexes(gameInstance, sourceRow, sourceCol, direction, number)
 
 	if err != nil {
 		return err
 	}
 
-	moveCellInner(myGame, sourceRow, sourceCol, destX, destY)
+	gameInstance.Board[destRow][destCol] = gameInstance.Board[sourceRow][sourceCol]
+	gameInstance.Board[sourceRow][sourceCol] = 0
 
 	return nil
 }
 
-func moveCellInner(game Game, sourceX int, sourceY int, destX int, destY int) {
-	game.Board[destX][destY] = game.Board[sourceX][sourceY]
-	game.Board[sourceX][sourceY] = 0
-}
-
 func InitGame(boardSize int) Game {
-	var myGame Game
+	var gameInstance Game
 
 	for {
 		board := CreateRandomBoard(boardSize)
 
-		myGame = Game{
+		gameInstance = Game{
 			board,
 		}
 
-		if !myGame.IsSuccess() {
+		if !gameInstance.IsSuccess() {
 			break
 		}
 	}
 
-	return myGame
+	return gameInstance
 }
 
 func (g Game) IsSuccess() bool {

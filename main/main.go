@@ -13,13 +13,14 @@ func main() {
 func gameFlow() {
 	presentation.PrintWelcome()
 	boardSize := input.ReadBoardSize()
-	myGame := game.InitGame(boardSize)
+	presentation.PrintPleaseWait()
+	gameInstance := game.InitGame(boardSize)
 	var err error
-	for !myGame.IsSuccess() {
-		presentation.PrintMenu(myGame, err)
-		number := input.ReadNumber(myGame)
+	for !gameInstance.IsSuccess() {
+		presentation.PrintMenu(gameInstance, err)
+		number := input.ReadNumber(gameInstance)
 		direction := input.ReadDirection()
-		err = myGame.MoveCell(number, direction)
+		err = gameInstance.MoveCell(number, direction)
 	}
-	presentation.PrintSuccess(myGame)
+	presentation.PrintSuccess(gameInstance)
 }

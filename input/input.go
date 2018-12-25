@@ -23,23 +23,23 @@ func ValidateBoardSize(num int, err error) int {
 	return num
 }
 
-func ReadNumber(myGame game.Game) int {
+func ReadNumber(gameInstance game.Game) int {
 	num := 0
 	valid := false
 
 	for !valid {
-		presentation.PrintEnterNum(myGame)
+		presentation.PrintEnterNum(gameInstance)
 		_, err := fmt.Scanf("%d", &num)
-		num, valid = ValidateNum(num, err, myGame)
+		num, valid = ValidateNum(num, err, gameInstance)
 	}
 
 	return num
 }
 
-func ValidateNum(num int, err error, myGame game.Game) (int, bool) {
+func ValidateNum(num int, err error, gameInstance game.Game) (int, bool) {
 	if err != nil {
 		fmt.Println("This is not a valid number.", err)
-	} else if num < 1 || num > myGame.NumbersCount() {
+	} else if num < 1 || num > gameInstance.NumbersCount() {
 		fmt.Println(game.NumberNotExistError{num})
 	} else {
 		return num, true

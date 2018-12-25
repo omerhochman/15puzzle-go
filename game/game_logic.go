@@ -1,32 +1,16 @@
 package game
 
-func GetDestinationIndexes(myGame Game, sourceRow int, sourceCol int, direction Direction, number int) (int, int, error) {
-	row, col := getDestinationIndexesInner(direction, sourceRow, sourceCol)
+func GetDestinationIndexes(gameInstance Game, sourceRow int, sourceCol int, direction Direction, number int) (int, int, error) {
+	row, col := getIndexesBySourceAndDirection(direction, sourceRow, sourceCol)
 
-	if !areDestinationIndexesValid(myGame, row, col) {
+	if !areDestinationIndexesValid(gameInstance, row, col) {
 		return row, col, CannotMoveCellError{number, direction}
 	}
 
 	return row, col, nil
 }
 
-func areDestinationIndexesValid(myGame Game, destRow int, destCol int) bool {
-	if destRow >= len(myGame.Board) || destRow < 0 {
-		return false
-	}
-
-	if destCol >= len(myGame.Board[0]) || destCol < 0 {
-		return false
-	}
-
-	if myGame.Board[destRow][destCol] != 0 {
-		return false
-	}
-
-	return true
-}
-
-func getDestinationIndexesInner(direction Direction, sourceRow int, sourceCol int) (int, int) {
+func getIndexesBySourceAndDirection(direction Direction, sourceRow int, sourceCol int) (int, int) {
 	row, col := 0, 0
 	switch direction {
 	case UP:
@@ -41,14 +25,30 @@ func getDestinationIndexesInner(direction Direction, sourceRow int, sourceCol in
 	return row, col
 }
 
-func GetIndexesByNumber(myGame Game, number int) (i int, j int, err error) {
+func areDestinationIndexesValid(gameInstance Game, destRow int, destCol int) bool {
+	if destRow >= len(gameInstance.Board) || destRow < 0 {
+		return false
+	}
+
+	if destCol >= len(gameInstance.Board[0]) || destCol < 0 {
+		return false
+	}
+
+	if gameInstance.Board[destRow][destCol] != 0 {
+		return false
+	}
+
+	return true
+}
+
+func GetIndexesByNumber(gameInstance Game, number int) (i int, j int, err error) {
 	if number == 0 {
 		return 0, 0, NumberNotExistError{0}
 	}
 
-	for i, row := range myGame.Board {
+	for i, row := range gameInstance.Board {
 		for j := range row {
-			if myGame.Board[i][j] == number {
+			if gameInstance.Board[i][j] == number {
 				return i, j, nil
 			}
 		}
