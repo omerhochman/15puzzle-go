@@ -3,8 +3,6 @@ package game
 import (
 	"bytes"
 	"fmt"
-	"math/rand"
-	"time"
 )
 
 type Game struct {
@@ -57,7 +55,6 @@ func moveCellInner(game Game, sourceX int, sourceY int, destX int, destY int) {
 }
 
 func InitGame(boardSize int) Game {
-
 	var myGame Game
 
 	for {
@@ -73,30 +70,6 @@ func InitGame(boardSize int) Game {
 	}
 
 	return myGame
-}
-
-func CreateRandomBoard(boardSize int) [][]int {
-	numbersArray, k := createShuffledNumbersArray(boardSize), 0
-	board := make([][]int, boardSize)
-	for i := range board {
-		board[i] = make([]int, boardSize)
-		for j := range board[i] {
-			board[i][j] = numbersArray[k]
-			k++
-		}
-	}
-	return board
-}
-
-func createShuffledNumbersArray(boardSize int) []int {
-	r := rand.New(rand.NewSource(time.Now().Unix()))
-	arr := make([]int, boardSize*boardSize)
-
-	for i, num := range r.Perm(len(arr)) {
-		arr[i] = num
-	}
-
-	return arr
 }
 
 func (g Game) IsSuccess() bool {
